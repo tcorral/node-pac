@@ -14,7 +14,7 @@ var merge = function() {
     if(oObj != null)
     {
       for (sKey in oObj) {
-        oNew[sKey] = oItem[sKey];
+        oNew[sKey] = oObj[sKey];
       }
     }
   }
