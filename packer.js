@@ -5,7 +5,21 @@ var Path = require('path')
 var glob = require('glob')
 var async = require('async')
 var _ = require('underscore')
-
+var merge = function() {
+  var oNew = {};
+  var nIndex, nLen = arguments.length, oObj, sKey;
+  for(nIndex = 0; nIndex < nLen; nIndex++)
+  {
+    oObj = arguments[nIndex];
+    if(oObj != null)
+    {
+      for (sKey in oObj) {
+        oNew[sKey] = oItem[sKey];
+      }
+    }
+  }
+  return oNew;
+}
 
 var log = function() {
   console.log.apply(console, arguments)
@@ -50,7 +64,7 @@ module.exports = function(targetModule) {
   }, {})
 
   // get dependency list
-  var deps = pkgjson.dependencies
+  var deps = merge(pkgjson.dependencies, pkgjson.devDependencies, pkgjson.bundledDependencies, pkgjson.bundleDependencies);
 
   // fail if the user specified a module that doesn't exist
   if (targetModule && !deps[targetModule]) {
